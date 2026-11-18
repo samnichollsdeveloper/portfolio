@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sam Nicholls — Senior Front-End Engineer</title>
+  <meta name="description" content="Sam Nicholls is a senior front-end engineer building fast, accessible, well-crafted interfaces." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0d0d12;
+      --surface: #16161e;
+      --text: #f2f1f7;
+      --muted: #9d9cab;
+      --line: rgba(242, 241, 247, 0.09);
+      --accent: #9b87ff;
+      --accent-soft: rgba(155, 135, 255, 0.12);
+      --accent-2: #ff8a66;
+      --accent-2-soft: rgba(255, 138, 102, 0.12);
+      --radius: 14px;
+      --max: 1080px;
+      --sans: "Inter", system-ui, -apple-system, sans-serif;
+      --serif: "Instrument Serif", Georgia, serif;
+      --mono: "JetBrains Mono", ui-monospace, monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    body {
+      margin: 0;
+      background-color: var(--bg);
+      background-image: radial-gradient(60vw 40vw at 80% -5%, rgba(155, 135, 255, 0.16), transparent 70%);
+      background-repeat: no-repeat;
+      color: var(--text);
+      font: 400 17px/1.6 var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    @media (max-width: 600px) { .wrap { padding: 0 16px; } }
+
+    .skip {
+      position: absolute; left: -9999px; top: 8px;
+      background: var(--text); color: var(--bg); padding: 8px 12px; border-radius: 8px;
+    }
+    .skip:focus { left: 16px; }
+
+    /* Nav */
+    header.nav {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 60%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    header.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { font-family: var(--mono); font-weight: 500; font-size: 15px; text-decoration: none; }
+    .logo span { color: var(--accent); }
+    nav ul { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; }
+    nav a { text-decoration: none; color: var(--muted); font-size: 15px; transition: color .15s; }
+    nav a:hover { color: var(--text); }
+    @media (max-width: 520px) { nav ul { gap: 18px; } nav a { font-size: 14px; } }
+
+    /* Hero */
+    .hero { padding: 120px 0 104px; }
+    h1 {
+      font-family: var(--serif); font-weight: 400;
+      font-size: clamp(44px, 7.5vw, 92px); line-height: 1.02; letter-spacing: -0.02em;
+      margin: 0 0 28px; max-width: 14ch;
+    }
+    h1 em { color: var(--accent-2); }
+    .lede { font-size: clamp(17px, 2vw, 20px); color: var(--muted); max-width: 56ch; margin: 0 0 40px; }
+    .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 20px; border-radius: 999px; font-weight: 500; font-size: 15px;
+      text-decoration: none; border: 1px solid var(--line); transition: transform .15s, background .15s, border-color .15s;
+    }
+    .btn:hover { transform: translateY(-1px); border-color: var(--text); }
+    .btn.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); box-shadow: 0 8px 24px -10px var(--accent); }
+    .btn:not(.primary) { background: var(--surface); }
+
+    /* Sections */
+    section.block { padding: 96px 0; border-top: 1px solid var(--line); }
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 48px; flex-wrap: wrap; }
+    .label { font-family: var(--mono); font-size: 13px; color: var(--accent); margin: 0 0 8px; }
+    h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(36px, 5vw, 56px); line-height: 1.05; margin: 0; letter-spacing: -0.01em; }
+    .section-note { color: var(--muted); max-width: 40ch; margin: 0; }
+
+    /* About */
+    .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 64px; }
+    .about-grid p { margin: 0 0 18px; }
+    .stack { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0; }
+    .stack li {
+      font-family: var(--mono); font-size: 13px;
+      padding: 6px 12px; border-radius: 999px;
+      color: var(--text); background: var(--surface); border: 1px solid var(--line);
+    }
+    .stack-title { font-family: var(--mono); font-size: 13px; color: var(--muted); margin: 0 0 14px; }
+    @media (max-width: 800px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+    /* Projects */
+    .soon {
+      position: relative; overflow: hidden;
+      background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--radius) + 6px);
+      padding: clamp(48px, 9vw, 96px) clamp(24px, 6vw, 64px);
+      text-align: center;
+    }
+    .soon::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(100deg, transparent 30%, var(--accent-soft) 50%, transparent 70%);
+      transform: translateX(-100%); animation: shimmer 3.2s infinite; pointer-events: none;
+    }
+    @keyframes shimmer { to { transform: translateX(100%); } }
+    @media (prefers-reduced-motion: reduce) { .soon::after { animation: none; } }
+    .soon .label { margin-bottom: 16px; }
+    .soon h2 em { color: var(--accent-2); }
+    .soon p { color: var(--muted); max-width: 44ch; margin: 18px auto 0; }
+
+    /* Contact */
+    .contact {
+      position: relative; overflow: hidden;
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 6px);
+      padding: clamp(32px, 6vw, 64px);
+      display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: end;
+    }
+    .contact::before {
+      content: ""; position: absolute; width: 420px; height: 420px; right: -120px; top: -180px;
+      border-radius: 50%; background: radial-gradient(circle, var(--accent-soft), transparent 65%); opacity: 1;
+      pointer-events: none;
+    }
+    .contact > * { position: relative; }
+    @media (max-width: 800px) { .contact { grid-template-columns: 1fr; } }
+    .contact h2 { margin-bottom: 16px; }
+    .contact p { color: var(--muted); margin: 0; max-width: 42ch; }
+    .links { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+    .links a {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 18px 20px; border-radius: 12px;
+      background: var(--bg); border: 1px solid var(--line);
+      text-decoration: none; transition: background .15s, border-color .15s, transform .15s;
+    }
+    .links a:hover { border-color: var(--accent); background: var(--accent-soft); transform: translateY(-1px); }
+    .links .k { font-family: var(--mono); font-size: 12px; color: var(--muted); display: block; margin-bottom: 2px; }
+    .links .v { font-weight: 500; overflow-wrap: anywhere; }
+    .links svg { flex: none; width: 18px; height: 18px; color: var(--muted); transition: transform .15s, color .15s; }
+    .links a:hover svg { transform: translate(2px, -2px); color: var(--accent); }
+
+    /* Small screens */
+    @media (max-width: 600px) {
+      .hero { padding: 72px 0 64px; }
+      section.block { padding: 64px 0; }
+      .ctas .btn { flex: 1 1 auto; justify-content: center; }
+      .contact { padding: 28px 20px; gap: 32px; }
+      .links a { padding: 16px; }
+      .links .v { font-size: 15px; }
+      body > footer { padding: 32px 0 40px; }
+    }
+    @media (max-width: 360px) {
+      header.nav .wrap { height: 56px; }
+      .logo { font-size: 14px; }
+      nav ul { gap: 14px; }
+      nav a { font-size: 13px; }
+    }
+
+    footer { padding: 40px 0 56px; color: var(--muted); font-size: 14px; }
+    footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-family: var(--mono); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="wrap">
+      <a class="logo" href="#top">sam<span>.</span>nicholls</a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap">
+        <h1>Senior front-end engineer crafting <em>thoughtful</em> interfaces.</h1>
+        <p class="lede">I'm Sam — I build fast, accessible and maintainable web experiences, with a soft spot for design systems, performance and the small details that make a product feel right.</p>
+        <div class="ctas">
+          <a class="btn primary" href="#contact">Get in touch</a>
+          <a class="btn" href="#projects">See what's coming</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="about">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="label">01 — About</p>
+            <h2>A bit about me</h2>
+          </div>
+        </div>
+        <div class="about-grid">
+          <div>
+            <p>I'm a senior front-end engineer who enjoys turning complex problems into simple, intuitive interfaces. I care about clean architecture, solid component APIs, and shipping work that's a pleasure to use and to maintain.</p>
+            <p>I work closely with designers and product teams, mentor other engineers, and champion accessibility and performance as first-class features rather than afterthoughts.</p>
+          </div>
+          <div>
+            <p class="stack-title">// toolkit</p>
+            <ul class="stack">
+              <li>TypeScript</li>
+              <li>React</li>
+              <li>Next.js</li>
+              <li>CSS / Sass</li>
+              <li>Design Systems</li>
+              <li>Accessibility</li>
+              <li>Web Performance</li>
+              <li>Testing</li>
+              <li>Node.js</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="projects">
+      <div class="wrap">
+        <div class="soon">
+          <p class="label">02 — Projects</p>
+          <h2>Projects <em>coming soon</em></h2>
+          <p>I'm working on a few things to share here. In the meantime, feel free to get in touch.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="contact">
+      <div class="wrap">
+        <div class="contact">
+          <div>
+            <p class="label">03 — Contact</p>
+            <h2>Let's work together</h2>
+            <p>Have a role, a project or just want to say hello? My inbox is always open.</p>
+          </div>
+          <ul class="links">
+            <li>
+              <a href="mailto:sam.nicholls@fastmail.com">
+                <span><span class="k">Email</span><span class="v">sam.nicholls@fastmail.com</span></span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+              </a>
+            </li>
+            <li>
+              <!-- TODO: replace with your real LinkedIn profile URL -->
+              <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer">
+                <span><span class="k">LinkedIn</span><span class="v">linkedin.com/in/your-profile</span></span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span id="year">2026</span> Sam Nicholls</span>    </div>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
